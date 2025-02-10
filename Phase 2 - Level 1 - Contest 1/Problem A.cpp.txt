@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <bitset>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <string>
+#include <cmath>
+#include <iomanip>
+#include <unordered_map>
+#include<numeric>
+using namespace std;
+#define int long long
+#define endl '\n'
+const int mod = 1e9 + 7, N = 1e5 + 5;
+void Magek() {
+    int n, m;
+	cin >> n >> m;
+	cout << ((n - m >= 0 && (n - m) % 2 == 0) ? "Yes" : "No" )<< endl;
+}
+signed main() {
+
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    cin >> t;
+    while (t--) {
+        Magek();
+    }
+
+    return 0;
+}

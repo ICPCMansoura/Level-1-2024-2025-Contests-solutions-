@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <bitset>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <string>
+#include <cmath>
+#include <iomanip>
+#include <unordered_map>
+#include<numeric>
+using namespace std;
+#define int long long
+#define endl '\n'
+const int mod = 1e9 + 7, N = 1e5 + 5;
+vector<vector<int>>adj;
+vector<int>vis;
+int getDivisors(int n) {    // O(sqrt(n))
+	int sum = 0;
+	for (int i = 1; i * i <= n; i++) {
+		if (n % i == 0) {
+			sum += i;
+			if (i != 1 && i * i != n) sum += n / i;
+		}
+	}
+	return sum;
+}
+double epsilon = 1e-6;
+vector<char> operations = { '+', '-', '*', '/' };
+double M;
+
+
+int32_t main() {
+    ios::sync_with_stdio(false); cin.tie(0);
+    int t = 1; //cin >> t;
+    while (t--)
+    {
+		int n, m;
+		cin >> n >> m;
+		map<int, int>lvl, p;
+		for (int i = 0; i < m; i++)
+		{
+			int x; cin >> x;
+			int y = ++p[x];
+			lvl[y]++;
+			if (lvl[y] == n)
+				cout << 1;
+			else
+				cout << 0;
+		}
+    }
+    return 0;
+}

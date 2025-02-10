@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+vector<bool>vis;
+
+int new_node = false;
+vector<int>temp;
+vector<int>a;
+vector<vector<int>>G;
+int danger = 1;
+void DFS(int u){
+    vis[u] = true;
+
+    temp.push_back(u);
+    for (auto x : G[u]) {
+        if(!vis[x]){
+            danger*=2;
+            DFS(x);
+        }
+
+    }
+}
+
+
+void solve() {
+    int n ;cin >> n;
+    vector<vector<int>>p(n+1);
+    int x ;
+    for (int i = 2; i <= n; ++i) {
+        cin >> x;
+        p[x].push_back(i);
+    }
+    for (int i = 1; i <= n; ++i) {
+         int leafs = 0;
+        for (auto x : p[i]) {
+            leafs+=p[x].empty();
+        }
+        if(leafs < 3 && !p[i].empty()){
+            cout << "NO\n";
+            return;
+        }
+    }
+    cout << "YES\n";
+}
+signed main() {
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    int t = 1;
+    //cin >> t;
+    while(t--)
+        solve();
+    return 0;
+}

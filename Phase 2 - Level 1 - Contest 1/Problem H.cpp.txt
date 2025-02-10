@@ -1,0 +1,78 @@
+#include <iostream>
+#include <vector>
+#include <bitset>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <string>
+#include <cmath>
+#include <iomanip>
+#include <unordered_map>
+#include<numeric>
+using namespace std;
+#define int long long
+#define endl '\n'
+const int mod = 1e9 + 7, N = 1e5 + 5;
+vector<vector<int>>adj;
+vector<int>vis;
+int getDivisors(int n) {    // O(sqrt(n))
+	int sum = 0;
+	for (int i = 1; i * i <= n; i++) {
+		if (n % i == 0) {
+			sum += i;
+			if (i != 1 && i * i != n) sum += n / i;
+		}
+	}
+	return sum;
+}
+double epsilon = 1e-6;
+vector<char> operations = { '+', '-', '*', '/' };
+double M;
+
+int ans = 1;
+void DFS(int node) {
+	vis[node] = 1;
+	for (auto child : adj[node]) {
+		if (!vis[child]) {
+			ans *= 2;
+			DFS(child);
+		}
+	}
+}
+int32_t main() {
+    ios::sync_with_stdio(false); cin.tie(0);
+    int t = 1;// cin >> t;
+    while (t--)
+    {
+		int n, q;
+		cin >> n >> q;
+		vector<int>a(n);
+		for (int i = 0; i < n; i++)
+		{
+			cin >> a[i];
+		}
+		vector<int>p(n + 2);
+		while (q--)
+		{
+			int l, r;
+			cin >> l >> r;
+			p[l]++;
+			p[r + 1]--;
+		}
+		for (int i = 1; i <= n; i++)
+		{
+			p[i] += p[i - 1];
+		}
+		sort(a.rbegin(), a.rend());
+		sort(p.rbegin(), p.rend());
+		int ans = 0;
+		for (int i = 0; i < n; i++)
+		{
+			ans += a[i] * p[i];
+		}
+		cout << ans;
+    }
+    return 0;
+}
