@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+ 
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+ 
+#define ordered_set tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update>
+#define ordered_set2 tree<int, null_type, greater_equal<int>, rb_tree_tag, tree_order_statistics_node_update>
+ 
+ 
+#define int long long
+#define ll long long
+#define all(x) x.begin(), x.end()
+ 
+#define fast ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
+
+
+int dx[] = {-1, 1, 0, 0};
+int dy[] = {0, 0, -1, 1};
+
+int n, m;
+char grid[55][55];
+
+int vis[55][55];
+bool can(int i, int j){
+    return i >= 0 && i < n && j >= 0 && j < m;
+}
+
+bool cycle = false;
+void dfs(int i, int j, int prev_i, int prev_j){
+    vis[i][j] = 1;
+
+    for(int k = 0; k < 4; k++){
+        int to_i = dx[k] + i;
+        int to_j = dy[k] + j;
+
+        if(can(to_i, to_j) && grid[to_i][to_j] == grid[i][j]){
+            if(!vis[to_i][to_j]){
+                dfs(to_i, to_j, i, j);
+            }
+            else if(vis[to_i][to_j] && !(to_i == prev_i && to_j == prev_j)){
+                cycle = true;
+                return;
+            }
+        }
+    }
+
+
+}
+
+void solve() {
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cin >> grid[i][j];
+        }
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(!vis[i][j]){
+                dfs(i, j, i, j);
+            }
+        }
+    }
+
+    cout << (cycle? "Yes" : "No");
+
+}
+
+signed main() {
+    fast
+    int T = 1;
+    //cin >> T;
+    while(T--){
+        solve();
+
+    }
+    return 0;
+}
